@@ -1,14 +1,34 @@
 <html>
     <head>
         <link href="index.css" rel="stylesheet">
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        
     </head>
     <body>
       <div class="position-relative">
-        <div class="position-absolute end-0 mt-2 me-2">
-          <button class="btn btn-success" id="dark_button" type="button" onclick="changemode();">Switch to Dark Mode</button>
+      <div class="position-absolute end-0 mt-2 me-2">
+        
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#weatherModal" onclick="geolocation();">Weather Information</button>
+        <button class="btn btn-success" id="dark_button" type="button" onclick="changemode();">Switch to Dark Mode</button>
+      </div>
+    </div>
+
+    <div class="modal fade" id="weatherModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Weather Information</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="modalbody">
+          Loading...
+          </div>
+          
         </div>
       </div>
+    </div>
+    
         <div class="container">
             <div class="row" style="height: 100vh;">
                 <div class="left col-lg-6 col-md-12 d-flex align-items-center justify-content-center">
@@ -54,6 +74,38 @@
                 document.getElementById('dark_button').innerHTML="Switch to Dark Mode";
               }
             }
+             function geolocation()
+            {            
+              if (navigator.geolocation){
+                          navigator.geolocation.getCurrentPosition(showposition);
+                        }
+                        else
+                        {
+                          document.getElementById("modalbody").innerText="Error in retrieving details!";
+                        }
+            }
+            function showposition(data){
+              var lat=data.coords.latitude;
+              var lon=data.coords.longitude;
+              const url='https://api.openweathermap.org/data/2.5/forecast/daily?lat='+lat+'&lon='+lon+'&units=metric&appid=fbf712a5a83d7305c3cda4ca8fe7ef29';
+
+              fetch(url, {method: 'GET'})
+              .then((res) => res.json())
+              .then((data) => {
+                var cityname=data.city.name;
+                var tempday=data.list[0].temp.day;
+                var tempnight=data.list[0].temp.night;
+                var w_main=data.list[0].weather[0].main;
+                var w_desc=data.list[0].weather[0].description;
+
+                document.getElementById("modalbody").innerHTML="<strong>Location: "+cityname+
+                "</strong><br/>Day Temperature: "+tempday+"°C <br/>Night Temperature: "+tempnight+
+                "°C.<br/>Weather: "+w_main+"<br/>Detailed Weather Information: "+w_desc;
+              })
+              
+            }
             </script>
+            
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
 </html>
