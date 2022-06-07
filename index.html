@@ -1,14 +1,46 @@
 <html>
     <head>
-        <link href="index.css" rel="stylesheet">
-        
+<style>
+  .right{
+    width:70%;
+}
+.card{
+    width:100%;
+}
+#login_button{
+    width: 100%;
+}
+#account_button{
+    width: 70%;
+}
+#forgot{
+    text-decoration: none;
+}
+.form-control:focus{
+    border-color:blue;
+}
+#create{
+    text-decoration: none;
+}
+.dark{
+    background-color: black;
+    color:white
+}
+
+@media screen and (max-width:992px){
+    h1{
+        text-align: center;
+    }
+    
+}
+</style>        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         
     </head>
     <body>
       <div class="position-relative">
       <div class="position-absolute end-0 mt-2 me-2">
-        
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#api_info">API Deployment</button>
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#weatherModal" onclick="geolocation();">Weather Information</button>
         <button class="btn btn-success" id="dark_button" type="button" onclick="changemode();">Switch to Dark Mode</button>
       </div>
@@ -23,6 +55,25 @@
           </div>
           <div class="modal-body" id="modalbody">
           Loading...
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="api_info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">API Information</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="modalbody">
+            <ul>
+          <li>list of users registered (<a href="/users">/users</a>)</li>
+          <li>user specific details (<a href="/user_spec">/user_spec</a>)</li>
+          <li>list of posts posted by user and on the basis of userid (<a href="/posts">/posts</a> or <a href="/posts?uid=1">/posts?uid=1</a>)</li>
+          <li>list of friend count (<a href="/friendcount">/friendcount</a>)</li>
+        </ul>
           </div>
           
         </div>
