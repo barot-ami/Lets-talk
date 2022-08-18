@@ -1,0 +1,32 @@
+.right{
+    width:70%;
+}
+.card{
+    width:100%;
+}
+#login_button{
+    width: 100%;
+}
+#account_button{
+    width: 70%;
+}
+#forgot{
+    text-decoration: none;
+}
+.form-control:focus{
+    border-color:blue;
+}
+#create{
+    text-decoration: none;
+}
+.dark{
+    background-color: black;
+    color:white
+}
+
+@media screen and (max-width:992px){
+    h1{
+        text-align: center;
+    }
+    
+}
